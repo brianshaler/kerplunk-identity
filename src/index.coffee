@@ -9,24 +9,17 @@ IdentityPlugin = (System) ->
   me = null
 
   findIdentity = (where) ->
-    deferred = Promise.defer()
-    Identity
+    mpromise = Identity
     .where where
-    .findOne (err, identity) ->
-      return deferred.reject err if err
-      deferred.resolve identity
-    deferred.promise
+    .findOne()
+    Promise mpromise
 
   getFriendCount = (where = {}) ->
     where['attributes.isFriend'] = true
-    deferred = Promise.defer()
-    Identity
+    mpromise = Identity
     .where where
-    .count (err, count) ->
-      console.log 'count', err, count
-      return deferred.reject err if err
-      deferred.resolve count
-    deferred.promise
+    .count()
+    Promise mpromise
 
   list = (req, res, next) ->
     dir = if req.query.dir == 'desc' then -1 else 1
@@ -51,19 +44,16 @@ IdentityPlugin = (System) ->
       '$exists': true
       '$ne': ''
 
-    deferred = Promise.defer()
-    Identity
+    mpromise = Identity
     .where where
     .sort sortBy
     .limit perPage
     .skip page * perPage
-    .find (err, identities) ->
-      return deferred.reject err if err
-      deferred.resolve identities
+    .find()
 
     Promise.all [
-      deferred.promise
-      getFriendCount(where)
+      Promise mpromise
+      getFriendCount where
     ]
     .done (results) ->
       [identities, count] = results
