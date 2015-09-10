@@ -1,6 +1,6 @@
 # kerplunk-identity
 
-[Kerplunk](https://github.com/brianshaler/kerplunk) plugin. 
+[Kerplunk](https://github.com/brianshaler/kerplunk) plugin. Core data model for generic identities
 
 [![Build Status](https://travis-ci.org/brianshaler/kerplunk-identity.svg)](https://travis-ci.org/brianshaler/kerplunk-identity)
 [![npm version](https://img.shields.io/npm/v/kerplunk-identity.svg)](https://www.npmjs.com/package/kerplunk-identity)
