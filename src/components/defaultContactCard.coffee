@@ -10,9 +10,10 @@ module.exports = React.createFactory React.createClass
 
     showNickName = false
     displayName = @props.identity.fullName
+    nickName = @props.identity.nickName
     if !displayName or displayName == ''
-      displayName = @props.identity.nickName
-    else if displayName != @props.identity.nickName
+      displayName = nickName
+    if displayName?.length > 0 and nickName?.length > 0 and displayName != nickName
       showNickName = true
 
     DOM.div
