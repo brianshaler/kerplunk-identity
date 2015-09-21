@@ -8,6 +8,14 @@ IdentityPlugin = (System) ->
 
   me = null
 
+  linkMe = (identity, next) ->
+    me.link identity, next
+
+  updateMe = (data, next) ->
+    for k, v of data
+      me[k] = v
+    me.save next
+
   findIdentity = (where) ->
     mpromise = Identity
     .where where
@@ -120,6 +128,18 @@ IdentityPlugin = (System) ->
         .catch (err) ->
           next err
 
+  editMe = (req, res, next) ->
+    done = ->
+      res.render 'edit',
+        identity: me
+        items: []
+    if req.body?.firstName
+      updateMe req.body, (err) ->
+        return next err if err
+        done()
+    else
+      done()
+
   removeIdentity = (req, res, next) ->
     return next new Error "requires unlink, which isn't ready"
 
@@ -192,6 +212,7 @@ IdentityPlugin = (System) ->
       '/admin/identity/unlink/:id': 'unlinkById'
       '/admin/contacts': 'list'
       '/admin/contacts/merge': 'merge'
+      '/admin/settings/identity': 'editMe'
 
   handlers:
     viewIdentity: viewIdentity
@@ -200,6 +221,7 @@ IdentityPlugin = (System) ->
     unlinkById: unlinkById
     list: list
     merge: merge
+    editMe: editMe
 
   globals:
     public:
@@ -207,11 +229,23 @@ IdentityPlugin = (System) ->
         avatarComponent: 'kerplunk-stream:avatar'
         defaultContactCard: 'kerplunk-identity:defaultContactCard'
       nav:
+        Admin:
+          Settings:
+            Identity: '/admin/settings/identity'
         Contacts:
           All: '/admin/contacts'
           Merge: '/admin/contacts/merge'
 
+  events:
+    identity:
+      save:
+        do: (identity) ->
+          Promise identity.save()
+
   getMe: -> me
+  methods:
+    linkMe: linkMe
+    updateMe: updateMe
 
   init: (next) ->
     ActivityItem = System.getModel 'ActivityItem'
