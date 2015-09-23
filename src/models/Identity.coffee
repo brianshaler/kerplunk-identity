@@ -55,10 +55,8 @@ module.exports = (mongoose) ->
     if keys.length == 1 and keys[0] == key
       hash = hash[key]
 
-    if !@data
-      @data = {}
-    if !@data[key]
-      @data[key] = {}
+    @data = {} unless @data
+    @data[key] = {} unless @data[key]
 
     for k, v of hash
       @data[key][k] = v
