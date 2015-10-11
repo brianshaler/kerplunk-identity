@@ -237,12 +237,17 @@ module.exports = (System) ->
           Merge: '/admin/contacts/merge'
 
   events:
+    init:
+      post: ->
+        ActivityItem = System.getModel 'ActivityItem'
+        return
     identity:
       save:
         do: (identity) ->
           Promise identity.save()
 
   getMe: -> me
+
   methods:
     linkMe: linkMe
     updateMe: updateMe
