@@ -2,7 +2,7 @@ _ = require 'lodash'
 IdentitySchema = require './models/Identity'
 Promise = require 'when'
 
-IdentityPlugin = (System) ->
+module.exports = (System) ->
   Identity = System.registerModel 'Identity', IdentitySchema
   ActivityItem = null
 
@@ -257,5 +257,3 @@ IdentityPlugin = (System) ->
       return next err if err
       me = identity
       next()
-
-module.exports = IdentityPlugin
