@@ -2,7 +2,7 @@
   "name": "kerplunk-identity",
   "displayName": "Identity",
   "description": "Core data model for generic identities",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "keywords": [
     "kerplunk-plugin"
   ],
