@@ -14,7 +14,7 @@ module.exports = React.createFactory React.createClass
     (e) =>
       e.preventDefault()
       [first, others...] = group
-      console.log 'merge', first._id, 'with', _.pluck others, '_id'
+      console.log 'merge', first._id, 'with', _.map others, '_id'
       Promise.all _.map others, (other) =>
         deferred = Promise.defer()
         url = "/admin/identity/link/#{first._id}/#{other._id}.json"

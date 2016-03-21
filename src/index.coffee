@@ -189,9 +189,9 @@ module.exports = (System) ->
         .filter (group) ->
           group.length > 1
         .map (group) ->
-          _.pluck group, 'identity'
+          _.map group, 'identity'
         .reduce (memo, group) ->
-          ids = _.pluck group, '_id'
+          ids = _.map group, '_id'
           for id in ids
             if memo.ids.indexOf(id) != -1
               return memo
