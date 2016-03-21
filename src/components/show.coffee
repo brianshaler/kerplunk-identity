@@ -75,25 +75,25 @@ module.exports = React.createFactory React.createClass
             item: item
 
           # grr @ manually sorting objects
-          _ item.fullAttributes
-          .map (attrs, name) ->
-            attrs: attrs
-            name: name
-          .sortBy 'name'
-          .map (obj) ->
-            {attrs, name} = obj
-            DOM.div
-              key: "attr-#{name}"
-            ,
-              DOM.h3 null, "#{name}s"
-              _.map attrs, (attr, index) ->
-                DOM.p
-                  key: "attr-#{name}-#{index}"
-                ,
-                  attr.text
-                  ': '
-                  Math.round attr.attributes?.score ? 0
-          .value()
+          # _ item.fullAttributes
+          # .map (attrs, name) ->
+          #   attrs: attrs
+          #   name: name
+          # .sortBy 'name'
+          # .map (obj) ->
+          #   {attrs, name} = obj
+          #   DOM.div
+          #     key: "attr-#{name}"
+          #   ,
+          #     DOM.h3 null, "#{name}s"
+          #     _.map attrs, (attr, index) ->
+          #       DOM.p
+          #         key: "attr-#{name}-#{index}"
+          #       ,
+          #         attr.text
+          #         ': '
+          #         Math.round attr.attributes?.score ? 0
+          # .value()
         #
         # DOM.pre null,
         #   JSON.stringify item, null, 2
